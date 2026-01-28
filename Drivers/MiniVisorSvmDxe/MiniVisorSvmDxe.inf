@@ -1,0 +1,83 @@
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = DxeForAMD
+  FILE_GUID                      = FEDCBA98-7654-3210-FEDC-BA9876543210
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = MiniVisorSvmDxeEntryPoint
+
+[Sources]
+  MiniVisorSvmDxe.c
+  SvmAuthNextGen.c
+  SecurityStubs.c
+
+[Sources.X64]
+  SvmAsm.nasm
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MiniVisorPkg/MiniVisorPkg.dec
+
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  UefiDriverEntryPoint
+  UefiLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  MemoryAllocationLib
+  PrintLib
+  DevicePathLib
+  PcdLib
+  DebugLib
+  IoLib
+  CpuLib
+  BaseCryptLib
+  TimerLib
+  MiniVisorAuthLib
+  UnifiedAuthLib
+
+[Protocols]
+  gEfiAcpiTableProtocolGuid
+  gEfiAcpiSdtProtocolGuid
+  gEfiSmbiosProtocolGuid
+  gEfiMpServiceProtocolGuid
+  gEfiPciRootBridgeIoProtocolGuid
+  gEfiTcg2ProtocolGuid
+  gEfiUsbIoProtocolGuid
+  gEfiPciIoProtocolGuid
+
+[Guids]
+  gEfiMdePkgTokenSpaceGuid
+  gMiniVisorPkgTokenSpaceGuid
+  gEfiFileSystemInfoGuid
+  gEfiFileInfoGuid
+  gEfiAcpiTableGuid
+
+[Pcd]
+  gMiniVisorPkgTokenSpaceGuid.PcdRing2VirtualizationEnabled
+  gMiniVisorPkgTokenSpaceGuid.PcdNestedSvmSupported
+  gMiniVisorPkgTokenSpaceGuid.PcdNptSupported
+  gMiniVisorPkgTokenSpaceGuid.PcdAsidSupported
+  gMiniVisorPkgTokenSpaceGuid.PcdLbrVirtSupported
+  gMiniVisorPkgTokenSpaceGuid.PcdAvicSupported
+  gMiniVisorPkgTokenSpaceGuid.PcdMaxNestedVmcbCount
+  gMiniVisorPkgTokenSpaceGuid.PcdMaxVmcbCount
+  gMiniVisorPkgTokenSpaceGuid.PcdVmcbSize
+  gMiniVisorPkgTokenSpaceGuid.PcdHostSaveAreaSize
+  gMiniVisorPkgTokenSpaceGuid.PcdNptPageTableSize
+  gMiniVisorPkgTokenSpaceGuid.PcdMsrBitmapSize
+  gMiniVisorPkgTokenSpaceGuid.PcdIoBitmapSize
+  gMiniVisorPkgTokenSpaceGuid.PcdMaxAsidCount
+  gMiniVisorPkgTokenSpaceGuid.PcdDebugLevel
+  gMiniVisorPkgTokenSpaceGuid.PcdStatisticsEnabled
+  gMiniVisorPkgTokenSpaceGuid.PcdPerformanceMonitoringEnabled
+  gMiniVisorPkgTokenSpaceGuid.PcdAntiDetectionEnabled
+  gMiniVisorPkgTokenSpaceGuid.PcdMemoryEncryptionEnabled
+
+[BuildOptions]
+  MSFT:*_*_X64_CC_FLAGS = /DSVM_SUPPORT=1 /DNESTED_SVM=1 /DAMD_VIRTUALIZATION=1
+  GCC:*_*_X64_CC_FLAGS = -DSVM_SUPPORT=1 -DNESTED_SVM=1 -DAMD_VIRTUALIZATION=1
+
+[Depex]
+  gEfiAcpiTableProtocolGuid AND gEfiMpServiceProtocolGuid

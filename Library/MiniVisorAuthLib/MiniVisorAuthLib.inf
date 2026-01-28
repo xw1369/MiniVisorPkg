@@ -1,0 +1,55 @@
+## @file
+#  MiniVisor Authorization Library
+#
+#  This library provides the unified authorization system for MiniVisor,
+#  supporting both Intel VT-d and AMD SVM platforms with advanced
+#  compatibility matrix and quantum-resistant cryptography.
+#
+#  Copyright (c) 2024, MiniVisor Project. All rights reserved.
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+##
+
+[Defines]
+  INF_VERSION                    = 0x0001001B
+  BASE_NAME                      = MiniVisorAuthLib
+  FILE_GUID                      = 12345678-1234-1234-1234-123456789ABC
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 2.0
+  LIBRARY_CLASS                  = MiniVisorAuthLib
+
+[Sources]
+  MiniVisorAuthCore.c
+  MiniVisorCompatibility.c
+  MiniVisorCrypto.c
+  MiniVisorCloudSync.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  CryptoPkg/CryptoPkg.dec
+  MiniVisorPkg/MiniVisorPkg.dec
+
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  DebugLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  BaseCryptLib
+  TimerLib
+  PrintLib
+  IoLib
+  PcdLib
+
+[Guids]
+  gMiniVisorPkgTokenSpaceGuid
+
+[Protocols]
+  gEfiUsbIoProtocolGuid
+  gEfiPciIoProtocolGuid
+
+[Pcd]
+  gMiniVisorPkgTokenSpaceGuid.PcdMiniVisorAuthVersion
+
+[BuildOptions]
+  MSFT:*_*_*_CC_FLAGS = /W3 /WX- /Oi- /wd4996 /wd4100 /wd4189 /I$(WORKSPACE)\MiniVisorPkg\Include
+  GCC:*_*_*_CC_FLAGS = -Wall -Wno-error -Wno-unused-parameter -Wno-unused-variable -I$(WORKSPACE)/MiniVisorPkg/Include

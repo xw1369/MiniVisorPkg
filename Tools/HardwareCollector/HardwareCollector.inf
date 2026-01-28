@@ -1,0 +1,44 @@
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = HardwareCollector
+  FILE_GUID                      = A3C72E8F-3D4B-4C5A-8F9E-1B2C3D4E5F60
+  MODULE_TYPE                    = UEFI_APPLICATION
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = UefiMain
+
+[Sources]
+  HardwareCollector.c
+
+[Packages]
+  MdePkg/MdePkg.dec
+  ShellPkg/ShellPkg.dec
+  MiniVisorPkg/MiniVisorPkg.dec
+
+[LibraryClasses]
+  UefiApplicationEntryPoint
+  UefiLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  MemoryAllocationLib
+  BaseMemoryLib
+  PrintLib
+  FileHandleLib
+  ShellLib
+  DebugLib
+  BaseLib
+  TimerLib
+
+[Protocols]
+  gEfiSimpleFileSystemProtocolGuid
+  gEfiSmbiosProtocolGuid
+  gEfiBlockIoProtocolGuid
+  gEfiLoadedImageProtocolGuid
+
+[Guids]
+  gEfiFileSystemInfoGuid
+
+[FeaturePcd]
+
+[Pcd]
+
+[BuildOptions] 

@@ -1,0 +1,50 @@
+## @file
+#  MiniVisor Anti-Detection Library
+#
+#  This library provides anti-detection capabilities for MiniVisor,
+#  including stealth techniques and detection avoidance mechanisms.
+#
+#  Copyright (c) 2024, MiniVisor Project. All rights reserved.
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+##
+
+[Defines]
+  INF_VERSION                    = 0x0001001B
+  BASE_NAME                      = MiniVisorAntiDetectionLib
+  FILE_GUID                      = 87654321-4321-4321-4321-CBA987654321
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = MiniVisorAntiDetectionLib
+
+[Sources]
+  MiniVisorAntiDetection.c
+
+[BuildOptions]
+  MSFT:*_*_*_CC_FLAGS = /W3 /WX- /Oi- /wd4996 /wd4100 /wd4189 /I$(WORKSPACE)\MiniVisorPkg\Include
+  GCC:*_*_*_CC_FLAGS = -Wall -Wno-error -Wno-unused-parameter -Wno-unused-variable -I$(WORKSPACE)/MiniVisorPkg/Include
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MiniVisorPkg/MiniVisorPkg.dec
+
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  DebugLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  CpuLib
+  TimerLib
+  PrintLib
+  IoLib
+  PcdLib
+
+[Guids]
+  gMiniVisorPkgTokenSpaceGuid
+
+[Pcd]
+  gMiniVisorPkgTokenSpaceGuid.PcdMiniVisorAntiDetectionEnabled
+
+[BuildOptions]
+  MSFT:*_*_*_CC_FLAGS = /W3 /WX- /Oi- /wd4996 /wd4100 /wd4189
+  GCC:*_*_*_CC_FLAGS = -Wall -Wno-error -Wno-unused-parameter -Wno-unused-variable

@@ -1,0 +1,70 @@
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = DxeForIntel
+  FILE_GUID                      = ABCDEF01-2345-6789-ABCD-EF0123456789
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 2.0
+  ENTRY_POINT                    = MiniVisorDxeEntryPoint
+
+[Sources]
+  MiniVisorDxe.c
+  VtdAuthNextGen.c
+  SecurityStubs.c
+
+[Sources.X64]
+  VmxAsm.nasm
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MiniVisorPkg/MiniVisorPkg.dec
+
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  UefiDriverEntryPoint
+  UefiLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  MemoryAllocationLib
+  PrintLib
+  DevicePathLib
+  PcdLib
+  DebugLib
+  IoLib
+  BaseCryptLib
+  TimerLib
+  MiniVisorAuthLib
+  UnifiedAuthLib
+
+[Protocols]
+  gEfiAcpiTableProtocolGuid
+  gEfiAcpiSdtProtocolGuid
+  gEfiSmbiosProtocolGuid
+  gEfiUsbIoProtocolGuid
+  gEfiPciIoProtocolGuid
+
+[Guids]
+  gEfiMdePkgTokenSpaceGuid
+  gMiniVisorPkgTokenSpaceGuid
+  gEfiFileSystemInfoGuid
+  gEfiFileInfoGuid
+
+[Pcd]
+  gMiniVisorPkgTokenSpaceGuid.PcdRing2VirtualizationEnabled
+  gMiniVisorPkgTokenSpaceGuid.PcdNestedVmxSupported
+  gMiniVisorPkgTokenSpaceGuid.PcdEptSupported
+  gMiniVisorPkgTokenSpaceGuid.PcdVpidSupported
+  gMiniVisorPkgTokenSpaceGuid.PcdVmfuncSupported
+  gMiniVisorPkgTokenSpaceGuid.PcdMaxNestedVmcsCount
+  gMiniVisorPkgTokenSpaceGuid.PcdMaxVmcsCount
+  gMiniVisorPkgTokenSpaceGuid.PcdVmxRegionSize
+  gMiniVisorPkgTokenSpaceGuid.PcdVmcsSize
+  gMiniVisorPkgTokenSpaceGuid.PcdDebugLevel
+  gMiniVisorPkgTokenSpaceGuid.PcdStatisticsEnabled
+
+[BuildOptions]
+  MSFT:*_*_X64_CC_FLAGS = /DVMX_SUPPORT=1 /DNESTED_VMX=1
+  GCC:*_*_X64_CC_FLAGS = -DVMX_SUPPORT=1 -DNESTED_VMX=1
+
+[Depex]
+  gEfiAcpiTableProtocolGuid

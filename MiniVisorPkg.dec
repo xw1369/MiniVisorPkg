@@ -1,0 +1,150 @@
+## @file MiniVisorPkg.dec
+# MiniVisor Ring-2 Nested Virtualization Package Declaration File
+#
+# Copyright (c) 2024, MiniVisor Project
+# SPDX-License-Identifier: BSD-2-Clause-Patent
+#
+
+[Defines]
+  DEC_SPECIFICATION              = 0x00010005
+  PACKAGE_NAME                   = MiniVisorPkg
+  PACKAGE_GUID                   = 87654321-4321-4321-4321-CBA987654321
+  PACKAGE_VERSION                = 2.0
+
+[Includes]
+  Include
+
+[Guids]
+  ## MiniVisor Ring-2 Virtualization Protocol GUID
+  gMiniVisorRing2VirtualizationProtocolGuid = { 0x87654321, 0x4321, 0x4321, { 0x43, 0x21, 0xCB, 0xA9, 0x87, 0x65, 0x43, 0x21 } }
+
+  ## MiniVisor Nested VMX Event GUID
+  gMiniVisorNestedVmxEventGuid = { 0x87654322, 0x4321, 0x4321, { 0x43, 0x21, 0xCB, 0xA9, 0x87, 0x65, 0x43, 0x22 } }
+
+  ## MiniVisor TokenSpace GUID
+  gMiniVisorPkgTokenSpaceGuid = { 0x87654323, 0x4321, 0x4321, { 0x43, 0x21, 0xCB, 0xA9, 0x87, 0x65, 0x43, 0x23 } }
+
+[PcdsFixedAtBuild]
+  ## Enable Ring-2 Virtualization
+  #  TRUE  - Enable Ring-2 Nested Virtualization
+  #  FALSE - Disable Ring-2 Nested Virtualization
+  gMiniVisorPkgTokenSpaceGuid.PcdRing2VirtualizationEnabled|TRUE|BOOLEAN|0x00000001
+
+  ## Nested VMX Support
+  #  TRUE  - Support Nested VMX functionality
+  #  FALSE - No support for Nested VMX functionality
+  gMiniVisorPkgTokenSpaceGuid.PcdNestedVmxSupported|TRUE|BOOLEAN|0x00000002
+
+  ## EPT (Extended Page Tables) Support
+  #  TRUE  - Support EPT memory virtualization
+  #  FALSE - No support for EPT memory virtualization
+  gMiniVisorPkgTokenSpaceGuid.PcdEptSupported|TRUE|BOOLEAN|0x00000003
+
+  ## VPID (Virtual Processor Identifier) Support
+  #  TRUE  - Support VPID optimization
+  #  FALSE - No support for VPID optimization
+  gMiniVisorPkgTokenSpaceGuid.PcdVpidSupported|TRUE|BOOLEAN|0x00000004
+
+  ## VMFUNC Support
+  #  TRUE  - Support VMFUNC instruction
+  #  FALSE - No support for VMFUNC instruction
+  gMiniVisorPkgTokenSpaceGuid.PcdVmfuncSupported|TRUE|BOOLEAN|0x00000005
+
+  ## Maximum Nested VMCS Count
+  #  Range: 1-16
+  #  Default: 4
+  gMiniVisorPkgTokenSpaceGuid.PcdMaxNestedVmcsCount|4|UINT32|0x00000012
+
+  ## Maximum VMCS Count
+  #  Range: 1-16
+  #  Default: 4
+  gMiniVisorPkgTokenSpaceGuid.PcdMaxVmcsCount|4|UINT32|0x00000006
+
+  ## VMX Region Size (bytes)
+  #  Range: 4096-65536
+  #  Default: 4096
+  gMiniVisorPkgTokenSpaceGuid.PcdVmxRegionSize|4096|UINT32|0x00000007
+
+  ## VMCS Size (bytes)
+  #  Range: 4096-65536
+  #  Default: 4096
+  gMiniVisorPkgTokenSpaceGuid.PcdVmcsSize|4096|UINT32|0x00000008
+
+  ## Debug Level
+  #  0 - No debug output
+  #  1 - Error messages
+  #  2 - Warning messages
+  #  3 - Information output
+  #  4 - Verbose debugging
+  gMiniVisorPkgTokenSpaceGuid.PcdDebugLevel|3|UINT8|0x00000009
+
+  ## Statistics Collection
+  #  TRUE  - Enable statistics collection
+  #  FALSE - Disable statistics collection
+  gMiniVisorPkgTokenSpaceGuid.PcdStatisticsEnabled|TRUE|BOOLEAN|0x0000000A
+
+  ## EPT Page Table Level
+  #  4 - 4-level page table (PML4)
+  #  5 - 5-level page table (PML5)
+  gMiniVisorPkgTokenSpaceGuid.PcdEptPageTableLevel|4|UINT8|0x0000000B
+
+  ## Default Memory Type
+  #  0 - Uncacheable (UC)
+  #  1 - Write Combining (WC)
+  #  4 - Write Through (WT)
+  #  5 - Write Protected (WP)
+  #  6 - Write Back (WB)
+  gMiniVisorPkgTokenSpaceGuid.PcdDefaultMemoryType|6|UINT8|0x0000000C
+
+  ## AMD SVM Support
+  gMiniVisorPkgTokenSpaceGuid.PcdNestedSvmSupported|TRUE|BOOLEAN|0x00000020
+
+  ## Anti-Detection Support
+  gMiniVisorPkgTokenSpaceGuid.PcdMiniVisorAntiDetectionEnabled|TRUE|BOOLEAN|0x00000021
+  gMiniVisorPkgTokenSpaceGuid.PcdNptSupported|TRUE|BOOLEAN|0x00000031
+  gMiniVisorPkgTokenSpaceGuid.PcdAsidSupported|TRUE|BOOLEAN|0x00000022
+  gMiniVisorPkgTokenSpaceGuid.PcdLbrVirtSupported|FALSE|BOOLEAN|0x00000023
+  gMiniVisorPkgTokenSpaceGuid.PcdAvicSupported|FALSE|BOOLEAN|0x00000024
+  gMiniVisorPkgTokenSpaceGuid.PcdMaxNestedVmcbCount|4|UINT32|0x00000025
+  gMiniVisorPkgTokenSpaceGuid.PcdMaxVmcbCount|4|UINT32|0x00000026
+  gMiniVisorPkgTokenSpaceGuid.PcdVmcbSize|4096|UINT32|0x00000027
+  gMiniVisorPkgTokenSpaceGuid.PcdHostSaveAreaSize|4096|UINT32|0x00000028
+  gMiniVisorPkgTokenSpaceGuid.PcdNptPageTableSize|2097152|UINT32|0x00000029
+  gMiniVisorPkgTokenSpaceGuid.PcdMsrBitmapSize|4096|UINT32|0x0000002A
+  gMiniVisorPkgTokenSpaceGuid.PcdIoBitmapSize|8192|UINT32|0x0000002B
+  gMiniVisorPkgTokenSpaceGuid.PcdMaxAsidCount|8|UINT32|0x0000002C
+  gMiniVisorPkgTokenSpaceGuid.PcdPerformanceMonitoringEnabled|TRUE|BOOLEAN|0x0000002D
+  gMiniVisorPkgTokenSpaceGuid.PcdAntiDetectionEnabled|FALSE|BOOLEAN|0x0000002E
+  gMiniVisorPkgTokenSpaceGuid.PcdMemoryEncryptionEnabled|FALSE|BOOLEAN|0x0000002F
+
+  ## MiniVisor Authorization Version
+  #  Version number for the authorization system
+  gMiniVisorPkgTokenSpaceGuid.PcdMiniVisorAuthVersion|0x00020000|UINT32|0x00000030
+
+[PcdsPatchableInModule]
+  ## Runtime Debug Level
+  #  Runtime modifiable debug level
+  gMiniVisorPkgTokenSpaceGuid.PcdRuntimeDebugLevel|3|UINT8|0x0000000D
+
+  ## Runtime Statistics Info
+  #  Runtime configurable statistics collection
+  gMiniVisorPkgTokenSpaceGuid.PcdRuntimeStatisticsEnabled|TRUE|BOOLEAN|0x0000000E
+
+[PcdsDynamic]
+  ## Dynamic VMCS Allocation
+  #  Whether to allow dynamic VMCS allocation
+  gMiniVisorPkgTokenSpaceGuid.PcdDynamicVmcsAllocation|TRUE|BOOLEAN|0x0000000F
+
+  ## Dynamic EPT Management
+  #  Whether to allow dynamic EPT page table allocation
+  gMiniVisorPkgTokenSpaceGuid.PcdDynamicEptManagement|TRUE|BOOLEAN|0x00000010
+
+[PcdsDynamicEx]
+  ## External Virtualization Policy Configuration
+  #  0 - Conservative policy (minimal functionality)
+  #  1 - Balanced policy (default)
+  #  2 - Aggressive policy (maximum performance)
+  gMiniVisorPkgTokenSpaceGuid.PcdVirtualizationPolicy|1|UINT8|0x00000011
+
+[UserExtensions.TianoCore."ExtraFiles"]
+  MiniVisorPkg/MiniVisorPkg.uni

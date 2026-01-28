@@ -1,0 +1,51 @@
+## @file
+#  Unified Authorization Library INF
+#
+#  This file provides the unified authorization system for both Intel VT-d and AMD SVM
+#  drivers, providing a consistent authorization interface.
+#
+#  Copyright (c) 2024, Virtualization Project. All rights reserved.
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+##
+
+[Defines]
+  INF_VERSION                    = 0x0001001B
+  BASE_NAME                      = UnifiedAuthLib
+  FILE_GUID                      = 12345678-1234-1234-1234-123456789ABC
+  MODULE_TYPE                    = BASE
+  VERSION_STRING                 = 1.0
+  LIBRARY_CLASS                  = UnifiedAuthLib
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  MiniVisorPkg/MiniVisorPkg.dec
+
+[LibraryClasses]
+  BaseLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  DebugLib
+  PrintLib
+  UefiLib
+  BaseCryptLib
+  UefiRuntimeServicesTableLib
+  UefiBootServicesTableLib
+  DevicePathLib
+  TimerLib
+
+[Protocols]
+  gEfiSimpleFileSystemProtocolGuid
+  gEfiLoadedImageProtocolGuid
+  gEfiSmbiosProtocolGuid
+
+[Guids]
+  gEfiFileSystemInfoGuid
+  gEfiFileInfoGuid
+
+[Sources]
+  UnifiedAuthLib.c
+
+[BuildOptions]
+  MSFT:*_*_*_CC_FLAGS = /D UNIFIED_AUTH_ENABLED /I$(WORKSPACE)\MiniVisorPkg\Include
+  GCC:*_*_*_CC_FLAGS = -D UNIFIED_AUTH_ENABLED -I$(WORKSPACE)/MiniVisorPkg/Include
